@@ -5,18 +5,19 @@
 # @brief Configures installed system, installs base packages, and creates user. 
 echo -ne "
 -------------------------------------------------------------------------
-   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+ 
+░██████╗░░█████╗░░█████╗░███████╗██╗░░░██╗  ░█████╗░░██████╗
+██╔════╝░██╔══██╗██╔══██╗██╔════╝╚██╗░██╔╝  ██╔══██╗██╔════╝
+██║░░██╗░██║░░██║██║░░██║█████╗░░░╚████╔╝░  ██║░░██║╚█████╗░
+██║░░╚██╗██║░░██║██║░░██║██╔══╝░░░░╚██╔╝░░  ██║░░██║░╚═══██╗
+╚██████╔╝╚█████╔╝╚█████╔╝██║░░░░░░░░██║░░░  ╚█████╔╝██████╔╝
+░╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░░░░╚═╝░░░  ░╚════╝░╚═════╝░
 -------------------------------------------------------------------------
-                    Automated Arch Linux Installer
-                        SCRIPTHOME: ArchTitus
+                    my arch thingy
+                        credits to christitustech for making the installer
 -------------------------------------------------------------------------
 "
-source $HOME/ArchTitus/configs/setup.conf
+source $HOME/goofy_os/configs/setup.conf
 echo -ne "
 -------------------------------------------------------------------------
                     Network Setup 
@@ -79,7 +80,7 @@ echo -ne "
 # sed $INSTALL_TYPE is using install type to check for MINIMAL installation, if it's true, stop
 # stop the script and move on, not installing any more packages below that line
 if [[ ! $DESKTOP_ENV == server ]]; then
-  sed -n '/'$INSTALL_TYPE'/q;p' $HOME/ArchTitus/pkg-files/pacman-pkgs.txt | while read line
+  sed -n '/'$INSTALL_TYPE'/q;p' $HOME/goofy_os/pkg-files/pacman-pkgs.txt | while read line
   do
     if [[ ${line} == '--END OF MINIMAL INSTALL--' ]]; then
       # If selected installation type is FULL, skip the --END OF THE MINIMAL INSTALLATION-- line
@@ -138,16 +139,16 @@ if ! source $HOME/ArchTitus/configs/setup.conf; then
 		echo "Incorrect username."
 	done 
 # convert name to lowercase before saving to setup.conf
-echo "username=${username,,}" >> ${HOME}/ArchTitus/configs/setup.conf
+echo "username=${username,,}" >> ${HOME}/goofy_os/configs/setup.conf
 
     #Set Password
     read -p "Please enter password:" password
-echo "password=${password,,}" >> ${HOME}/ArchTitus/configs/setup.conf
+echo "password=${password,,}" >> ${HOME}/goofy_os/configs/setup.conf
 
     # Loop through user input until the user gives a valid hostname, but allow the user to force save 
 	while true
 	do 
-		read -p "Please name your machine:" name_of_machine
+		read -p "Please name your brand new goofy_os machine:" name_of_machine
 		# hostname regex (!!couldn't find spec for computer name!!)
 		if [[ "${name_of_machine,,}" =~ ^[a-z][a-z0-9_.-]{0,62}[a-z0-9]$ ]]
 		then 
@@ -161,7 +162,7 @@ echo "password=${password,,}" >> ${HOME}/ArchTitus/configs/setup.conf
 		fi 
 	done 
 
-    echo "NAME_OF_MACHINE=${name_of_machine,,}" >> ${HOME}/ArchTitus/configs/setup.conf
+    echo "NAME_OF_MACHINE=${name_of_machine,,}" >> ${HOME}/goofy_os/configs/setup.conf
 fi
 echo -ne "
 -------------------------------------------------------------------------
@@ -177,7 +178,7 @@ if [ $(whoami) = "root"  ]; then
     echo "$USERNAME:$PASSWORD" | chpasswd
     echo "$USERNAME password set"
 
-	cp -R $HOME/ArchTitus /home/$USERNAME/
+	cp -R $HOME/goofy_os /home/$USERNAME/
     chown -R $USERNAME: /home/$USERNAME/ArchTitus
     echo "ArchTitus copied to home directory"
 
